@@ -1,12 +1,12 @@
 /**
  * Copyright 2012 Netflix, Inc.
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -46,7 +46,7 @@ public interface HystrixThreadPool {
 
     /**
      * Implementation of {@link ThreadPoolExecutor}.
-     * 
+     *
      * @return ThreadPoolExecutor
      */
     public ThreadPoolExecutor getExecutor();
@@ -75,7 +75,7 @@ public interface HystrixThreadPool {
      * <p>
      * This allows dynamic control of the max queueSize versus whatever the actual max queueSize is so that dynamic changes can be done via property changes rather than needing an app
      * restart to adjust when commands should be rejected from queuing up.
-     * 
+     *
      * @return boolean whether there is space on the queue
      */
     public boolean isQueueSpaceAvailable();
@@ -83,7 +83,7 @@ public interface HystrixThreadPool {
     /**
      * @ExcludeFromJavadoc
      */
-    /* package */static class Factory {
+    public static class Factory {
         /*
          * Use the String from HystrixThreadPoolKey.name() instead of the HystrixThreadPoolKey instance as it's just an interface and we can't ensure the object
          * we receive implements hashcode/equals correctly and do not want the default hashcode/equals which would create a new threadpool for every object we get even if the name is the same
@@ -94,10 +94,10 @@ public interface HystrixThreadPool {
          * Get the {@link HystrixThreadPool} instance for a given {@link HystrixThreadPoolKey}.
          * <p>
          * This is thread-safe and ensures only 1 {@link HystrixThreadPool} per {@link HystrixThreadPoolKey}.
-         * 
+         *
          * @return {@link HystrixThreadPool} instance
          */
-        /* package */static HystrixThreadPool getInstance(HystrixThreadPoolKey threadPoolKey, HystrixThreadPoolProperties.Setter propertiesBuilder) {
+        public static HystrixThreadPool getInstance(HystrixThreadPoolKey threadPoolKey, HystrixThreadPoolProperties.Setter propertiesBuilder) {
             // get the key to use instead of using the object itself so that if people forget to implement equals/hashcode things will still work
             String key = threadPoolKey.name();
 
